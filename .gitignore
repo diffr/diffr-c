@@ -1,0 +1,6 @@
+# Generated files.
+build/
+documentation/
+# OSX
+.DS_Store
+

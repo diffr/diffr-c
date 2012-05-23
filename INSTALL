@@ -1,0 +1,33 @@
+# Installation instructions for diffr-c.
+# 
+# This program is written under C++, and built using CMake.
+# To build, you will need a C++ compiler such a G++ installed and in the
+# PATH environment variable.
+# Additionally, you will need to have CMake 
+# (http://www.cmake.org/cmake/resources/software.html) installed.
+
+############
+# BUILDING #
+############
+
+For best results:
+1. Run "mkdir build"
+2. Run "cd build"
+3. Run "cmake .." to create the Makefile.
+4. Run "make" to build.
+
+Optionally:
+5. Run "make install" to install the program.
+
+###########
+# TESTING #
+###########
+
+6. Run "ctest" to run all tests.
+
+###########
+# RUNNING #
+###########
+
+7. Run "./diffr-c" to run the program from within the build directory, or if installed, just run "diffr-c".
+
