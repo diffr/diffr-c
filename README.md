@@ -1,4 +1,6 @@
-= diffr: intelligent diff/patch tool that knows how to copy and move, and has an 'r' at the end of its name.
+diffr
+=============
+An intelligent diff/patch tool that knows how to copy and move, and has an 'r' at the end of its name.
 
 * See LICENCE and COPYING for the details on how to obtain the licence.
 * See ChangeLog and NEWS for the details of new versions, and other news that relate to the project.
