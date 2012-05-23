@@ -1,0 +1,2 @@
+http://web.archive.org/web/20090221065206/http://www.ibm.com/developerworks/linux/library/l-glib.html
+http://www.ibm.com/developerworks/linux/tutorials/l-glib/
