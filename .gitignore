@@ -4,6 +4,8 @@ documentation/
 # IntelliJ IDEA
 *.iml
 *.idea/
+# Netbeans
+*nbproject/
 # OSX
 .DS_Store
 
