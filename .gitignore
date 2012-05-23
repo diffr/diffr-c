@@ -1,6 +1,9 @@
 # Generated files.
 build/
 documentation/
+# IntelliJ IDEA
+*.iml
+*.idea/
 # OSX
 .DS_Store
 
