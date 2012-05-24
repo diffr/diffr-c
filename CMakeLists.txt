@@ -97,12 +97,14 @@ enable_testing(true)
 #	)
 #target_link_libraries(DiffrTests gtest gtest_main
 #    ${DIFFR_UTIL}
-#    ${DIFFR_SUFFIXTREE})
+#    ${DIFFR_SUFFIXTREE}
+#    ${DIFFR_DIFF})
 #add_test(DiffrTests DiffrTests)
 #
 #add_executable(PatchrTests
 #	${DIFFR_TEST_DIR}/patchr/
 #	)
 #target_link_libraries(PatchrTests gtest gtest_main
-#    ${DIFFR_UTIL})
+#    ${DIFFR_UTIL}
+#    ${DIFFR_PATCH})
 #add_test(PatchrTests PatchrTests)
