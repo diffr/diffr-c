@@ -10,19 +10,19 @@ To build, you will need:
 #### Building
 
 For best results:
-1. Run "mkdir build"
-2. Run "cd build"
-3. Run "cmake .." to create the Makefile.
-4. Run "make" to build.
+1. Run "mkdir build".  
+2. Run "cd build".  
+3. Run "cmake .." to create the Makefile.  
+4. Run "make" to build.  
 
 Optionally:
-5. Run "make install" to install the program.
+* Run "make install" to install the program.  
 
 #### Testing
 
-6. Run "ctest" to run all tests.
+* Run "ctest" to run all tests.  
 
 #### Running
 
-7. Run "./diffr-c" to run the program from within the build directory, or if installed, just run "diffr-c".
+* Run "./diffr-c" to run the program from within the build directory, or if installed, just run "diffr-c".  
 
