@@ -78,33 +78,33 @@ enable_testing(true)
 # list test definitions here
 # TODO: replace this with a macro
 
-#add_executable(UtilTests
-#	${DIFFR_TEST_DIR}/util/
-#	)
-#target_link_libraries(UtilTests gtest gtest_main
-#    ${DIFFR_UTIL})
-#add_test(UtilTests UtilTests)
-#
-#add_executable(SuffixTreeTests
-#	${DIFFR_TEST_DIR}/suffixTree/
-#	)
-#target_link_libraries(SuffixTreeTests gtest gtest_main
-#    ${DIFFR_SUFFIXTREE})
-#add_test(SuffixTreeTests SuffixTreeTests)
-#
-#add_executable(DiffrTests
-#	${DIFFR_TEST_DIR}/diffr/
-#	)
-#target_link_libraries(DiffrTests gtest gtest_main
-#    ${DIFFR_UTIL}
-#    ${DIFFR_SUFFIXTREE}
-#    ${DIFFR_DIFF})
-#add_test(DiffrTests DiffrTests)
-#
-#add_executable(PatchrTests
-#	${DIFFR_TEST_DIR}/patchr/
-#	)
-#target_link_libraries(PatchrTests gtest gtest_main
-#    ${DIFFR_UTIL}
-#    ${DIFFR_PATCH})
-#add_test(PatchrTests PatchrTests)
+add_executable(UtilTests
+	${DIFFR_TEST_DIR}/util/ArgumentsProcessorTest.cpp
+	)
+target_link_libraries(UtilTests gtest gtest_main
+    ${DIFFR_UTIL})
+add_test(UtilTests UtilTests)
+
+add_executable(SuffixTreeTests
+	${DIFFR_TEST_DIR}/suffixTree/SuffixTreesTest.cpp
+	)
+target_link_libraries(SuffixTreeTests gtest gtest_main
+    ${DIFFR_SUFFIXTREE})
+add_test(SuffixTreeTests SuffixTreeTests)
+
+add_executable(DiffrTests
+	${DIFFR_TEST_DIR}/diff/DiffrTest.cpp
+	)
+target_link_libraries(DiffrTests gtest gtest_main
+    ${DIFFR_UTIL}
+    ${DIFFR_SUFFIXTREE}
+    ${DIFFR_DIFF})
+add_test(DiffrTests DiffrTests)
+
+add_executable(PatchrTests
+	${DIFFR_TEST_DIR}/patch/PatchrTest.cpp
+	)
+target_link_libraries(PatchrTests gtest gtest_main
+    ${DIFFR_UTIL}
+    ${DIFFR_PATCH})
+add_test(PatchrTests PatchrTests)
