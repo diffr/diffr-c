@@ -33,8 +33,13 @@ set(DIFFR_PATCH diffr-patch)
 set(DIFFR_SOURCE_DIR src)
 set(DIFFR_INCLUDE_DIR include)
 set(DIFFR_TEST_DIR test/src)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-include_directories(${DIFFR_INCLUDE_DIR}
+find_package(PkgConfig)
+find_package(Glib)
+include_directories(
+    ${DIFFR_INCLUDE_DIR}
+    ${GLIB_INCLUDE_DIRS}
 )
 
 # list all source files here
@@ -43,18 +48,30 @@ include_directories(${DIFFR_INCLUDE_DIR}
 add_library (${DIFFR_UTIL}
     ${DIFFR_SOURCE_DIR}/util/ArgumentsProcessor.c
     )
+target_link_libraries (${DIFFR_UTIL}
+    ${GLIB_LIBRARIES}
+)
 
 add_library (${DIFFR_SUFFIXTREE}
     ${DIFFR_SOURCE_DIR}/suffixTree/SuffixTrees.c
     )
+target_link_libraries (${DIFFR_SUFFIXTREE}
+    ${GLIB_LIBRARIES}
+)
 
 add_library (${DIFFR_DIFF}
     ${DIFFR_SOURCE_DIR}/diff/Diffr.c
     )
+target_link_libraries (${DIFFR_DIFF}
+    ${GLIB_LIBRARIES}
+)
 
 add_library (${DIFFR_PATCH}
     ${DIFFR_SOURCE_DIR}/patch/Patchr.c
     )
+target_link_libraries (${DIFFR_PATCH}
+    ${GLIB_LIBRARIES}
+)
 
 add_executable (${DIFFR_DIFFNAME}
 	${DIFFR_SOURCE_DIR}/diff/main.c)
