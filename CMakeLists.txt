@@ -33,7 +33,7 @@ set(DIFFR_PATCH diffr-patch)
 set(DIFFR_SOURCE_DIR src)
 set(DIFFR_INCLUDE_DIR include)
 set(DIFFR_TEST_DIR test/src)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
 find_package(PkgConfig)
 find_package(Glib)
@@ -53,7 +53,7 @@ target_link_libraries (${DIFFR_UTIL}
 )
 
 add_library (${DIFFR_SUFFIXTREE}
-    ${DIFFR_SOURCE_DIR}/suffixTree/SuffixTrees.c
+    ${DIFFR_SOURCE_DIR}/suffixtree/SuffixTrees.c
     )
 target_link_libraries (${DIFFR_SUFFIXTREE}
     ${GLIB_LIBRARIES}
@@ -109,7 +109,7 @@ target_link_libraries(UtilTests gtest gtest_main
 add_test(UtilTests UtilTests)
 
 add_executable(SuffixTreeTests
-	${DIFFR_TEST_DIR}/suffixTree/SuffixTreesTest.cpp
+	${DIFFR_TEST_DIR}/suffixtree/SuffixTreesTest.cpp
 	)
 target_link_libraries(SuffixTreeTests gtest gtest_main
     ${DIFFR_SUFFIXTREE})
