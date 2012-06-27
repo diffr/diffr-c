@@ -90,7 +90,13 @@ target_link_libraries(${DIFFR_PATCHNAME}
 # GTest - http://code.google.com/p/googletest/ #
 ################################################
 
+add_subdirectory(gtest-1.6.0)
 enable_testing(true)
+
+include_directories(
+    ${gtest_SOURCE_DIR}/include 
+    ${gtest_SOURCE_DIR}
+)
 	
 # list test definitions here
 # TODO: replace this with a macro
