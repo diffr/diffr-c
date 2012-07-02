@@ -49,44 +49,35 @@ include_directories(
 
 add_library (${DIFFR_UTIL}
     ${DIFFR_SOURCE_DIR}/util/ArgumentsProcessor.c
+    ${DIFFR_SOURCE_DIR}/util/instruction/Instruction.c
     )
-target_link_libraries (${DIFFR_UTIL}
-    ${GLIB_LIBRARIES}
-)
 
 add_library (${DIFFR_SUFFIXTREE}
     ${DIFFR_SOURCE_DIR}/suffixtree/SuffixTrees.c
     )
-target_link_libraries (${DIFFR_SUFFIXTREE}
-    ${GLIB_LIBRARIES}
-)
 
 add_library (${DIFFR_DIFF}
     ${DIFFR_SOURCE_DIR}/diff/Diffr.c
     )
-target_link_libraries (${DIFFR_DIFF}
-    ${GLIB_LIBRARIES}
-)
 
 add_library (${DIFFR_PATCH}
     ${DIFFR_SOURCE_DIR}/patch/Patchr.c
     )
-target_link_libraries (${DIFFR_PATCH}
-    ${GLIB_LIBRARIES}
-)
 
 add_executable (${DIFFR_DIFFNAME}
 	${DIFFR_SOURCE_DIR}/diff/main.c)
 target_link_libraries(${DIFFR_DIFFNAME}
 	${DIFFR_UTIL}
 	${DIFFR_SUFFIXTREE}
-	${DIFFR_DIFF})
+	${DIFFR_DIFF}
+        ${GLIB_LIBRARIES})
 
 add_executable (${DIFFR_PATCHNAME}
 	${DIFFR_SOURCE_DIR}/patch/main.c)
 target_link_libraries(${DIFFR_PATCHNAME}
 	${DIFFR_UTIL}
-	${DIFFR_PATCH})
+	${DIFFR_PATCH}
+        ${GLIB_LIBRARIES})
 
 ################################################
 # GTest - http://code.google.com/p/googletest/ #
@@ -107,9 +98,11 @@ IF(TESTING)
 
     add_executable(UtilTests
 	${DIFFR_TEST_DIR}/util/ArgumentsProcessorTest.cpp
+	${DIFFR_TEST_DIR}/util/instruction/InstructionTest.cpp
     )
     target_link_libraries(UtilTests gtest gtest_main
         ${DIFFR_UTIL}
+        ${GLIB_LIBRARIES}
     )
     add_test(UtilTests UtilTests)
 

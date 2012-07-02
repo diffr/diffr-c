@@ -25,7 +25,7 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-    #include "diffr/suffixtree/SuffixTrees.h"
+#include "diffr/suffixtree/SuffixTrees.h"
 }
 
 namespace {
@@ -46,12 +46,12 @@ namespace {
         }
 
     };
+};
 
-    /*
-     * Tests whether the createTree method works correctly.
-     * 
-     */
-    TEST_F(SuffixTreesTest, CreateTreeTest) {
-        createTree();
-    }
+/*
+ * Tests whether the createTree method works correctly.
+ * 
+ */
+TEST_F(SuffixTreesTest, CreateTreeTest) {
+    createTree();
 }

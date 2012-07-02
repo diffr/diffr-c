@@ -1,7 +1,7 @@
 /**
- * @file PatchrTest.cpp
+ * @file InstructionTest.cpp
  * @author  William Martin <will.st4@gmail.com>
- * @version 0.0
+ * @version 0.1
  *
  * @section LICENSE
  *
@@ -25,33 +25,27 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "diffr/patch/Patchr.h"
+#include "diffr/util/instruction/Instruction.h"
 }
 
 namespace {
 
     /**
-     * Tests Patchr.
+     * Tests Instruction.
      * 
      */
-    class PatchrTest : public ::testing::Test {
+    class InstructionTest : public ::testing::Test {
     protected:
 
-        PatchrTest() {
+        InstructionTest() {
 
         }
 
-        virtual ~PatchrTest() {
+        virtual ~InstructionTest() {
 
         }
 
     };
 };
 
-/*
- * Tests whether the buildList method works correctly.
- * 
- */
-TEST_F(PatchrTest, BuildListTest) {
-    buildList();
-}
+// no tests! TODO

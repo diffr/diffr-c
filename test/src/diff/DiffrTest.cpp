@@ -25,7 +25,7 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-    #include "diffr/diff/Diffr.h"
+#include "diffr/diff/Diffr.h"
 }
 
 namespace {
@@ -46,12 +46,12 @@ namespace {
         }
 
     };
+};
 
-    /*
-     * Tests whether the buildList method works correctly.
-     * 
-     */
-    TEST_F(DiffrTest, BuildListTest) {
-        buildList();
-    }
+/*
+ * Tests whether the buildList method works correctly.
+ * 
+ */
+TEST_F(DiffrTest, BuildListTest) {
+    buildList();
 }
