@@ -24,6 +24,8 @@ cmake_minimum_required (VERSION 2.6.2)
 
 project (diffr-c)
 
+OPTION(TESTING "Build tests." ON)
+
 set(DIFFR_DIFFNAME diffr)
 set(DIFFR_PATCHNAME patchr)
 set(DIFFR_UTIL diffr-util)
@@ -90,44 +92,50 @@ target_link_libraries(${DIFFR_PATCHNAME}
 # GTest - http://code.google.com/p/googletest/ #
 ################################################
 
-add_subdirectory(gtest-1.6.0)
-enable_testing(true)
+IF(TESTING)
 
-include_directories(
-    ${gtest_SOURCE_DIR}/include 
-    ${gtest_SOURCE_DIR}
-)
+    add_subdirectory(gtest)
+    enable_testing(true)
+
+    include_directories(
+        ${gtest_SOURCE_DIR}/include 
+        ${gtest_SOURCE_DIR}
+    )
 	
-# list test definitions here
-# TODO: replace this with a macro
+    # list test definitions here
+    # TODO: replace this with a macro
 
-add_executable(UtilTests
+    add_executable(UtilTests
 	${DIFFR_TEST_DIR}/util/ArgumentsProcessorTest.cpp
-	)
-target_link_libraries(UtilTests gtest gtest_main
-    ${DIFFR_UTIL})
-add_test(UtilTests UtilTests)
+    )
+    target_link_libraries(UtilTests gtest gtest_main
+        ${DIFFR_UTIL}
+    )
+    add_test(UtilTests UtilTests)
 
-add_executable(SuffixTreeTests
+    add_executable(SuffixTreeTests
 	${DIFFR_TEST_DIR}/suffixtree/SuffixTreesTest.cpp
-	)
-target_link_libraries(SuffixTreeTests gtest gtest_main
-    ${DIFFR_SUFFIXTREE})
-add_test(SuffixTreeTests SuffixTreeTests)
+    )
+    target_link_libraries(SuffixTreeTests gtest gtest_main
+        ${DIFFR_SUFFIXTREE}
+    )
+    add_test(SuffixTreeTests SuffixTreeTests)
 
-add_executable(DiffrTests
-	${DIFFR_TEST_DIR}/diff/DiffrTest.cpp
-	)
-target_link_libraries(DiffrTests gtest gtest_main
-    ${DIFFR_UTIL}
-    ${DIFFR_SUFFIXTREE}
-    ${DIFFR_DIFF})
-add_test(DiffrTests DiffrTests)
+    add_executable(DiffrTests
+        ${DIFFR_TEST_DIR}/diff/DiffrTest.cpp
+    )
+    target_link_libraries(DiffrTests gtest gtest_main
+        ${DIFFR_UTIL}
+        ${DIFFR_SUFFIXTREE}
+        ${DIFFR_DIFF})
+    add_test(DiffrTests DiffrTests)
 
-add_executable(PatchrTests
-	${DIFFR_TEST_DIR}/patch/PatchrTest.cpp
-	)
-target_link_libraries(PatchrTests gtest gtest_main
-    ${DIFFR_UTIL}
-    ${DIFFR_PATCH})
-add_test(PatchrTests PatchrTests)
+    add_executable(PatchrTests
+        ${DIFFR_TEST_DIR}/patch/PatchrTest.cpp
+    )
+    target_link_libraries(PatchrTests gtest gtest_main
+        ${DIFFR_UTIL}
+        ${DIFFR_PATCH})
+    add_test(PatchrTests PatchrTests)
+
+ENDIF(TESTING)
