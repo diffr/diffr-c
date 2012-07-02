@@ -25,7 +25,7 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-    #include "diffr/util/ArgumentsProcessor.h"
+#include "diffr/util/ArgumentsProcessor.h"
 }
 
 namespace {
@@ -46,12 +46,12 @@ namespace {
         }
 
     };
+};
 
-    /*
-     * Tests whether the processArguments method works correctly.
-     * 
-     */
-    TEST_F(ArgumentsProcessorTest, ProcessArgumentsTest) {
-        processArguments();
-    }
+/*
+ * Tests whether the processArguments method works correctly.
+ * 
+ */
+TEST_F(ArgumentsProcessorTest, ProcessArgumentsTest) {
+    processArguments();
 }
