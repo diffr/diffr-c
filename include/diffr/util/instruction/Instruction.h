@@ -1,6 +1,7 @@
 /**
  * @file Instruction.h
  * @author Amaury Couste <ben@bantertrain.com>
+ * @author Jakub Dominik Kozlowski <mail@jakub-kozlowski.com>
  * @since 0.1
  *
  * @section LICENSE
@@ -31,20 +32,75 @@
 
 #include <glib-2.0/glib.h>
 
-typedef struct {
+/**
+ * Defines the type of the ::instruction.
+ * 
+ */
+enum instruction_type {
+  
+  /**
+   * Denotes a copy instruction.
+   */
+  COPY,
 
-    enum {
-        COPY, INSERT
-    } type;
-    long start;
-    long end;
-    GString *text;
+  /**
+   * Denotes an insert instruction.
+   */
+  INSERT
+};
+
+/**
+ * Defines a range for the ::COPY instruction that starts at 
+ * \a start (inclusive) and ends at \a end (exclusive).
+ * 
+ */
+typedef struct {
+  const long start;
+  const long end;
+} copy_range;
+
+/**
+ * Defines an ::instruction.
+ *  
+ */
+typedef struct {
+  
+  const enum instruction_type type;
+  
+  union {
+    const copy_range *range;
+    const GString *text;
+  } data;
+  
 } instruction;
 
+/**
+ * Creates a ::COPY ::instruction for this \a range. If \a range is NULL, 
+ * this function call will fail. 
+ * 
+ * @param range range of this ::COPY ::instruction. This constructor creates a 
+ *              private copy of \a range.
+ * 
+ * @return pointer to a newly created ::COPY ::instruction.
+ */
+instruction* create_copy_instruction(const copy_range* range);
 
-instruction* create_copy_instruction(long start, long end);
-instruction* create_insert_instruction(GString* text);
+/**
+ * Creates an ::INSERT ::instruction that inserts \a text. If \a text is NULL 
+ * or empty, this function call will fail.
+ * 
+ * @param text  line to insert. This constructor creates a private copy of 
+ *              \a line.
+ * 
+ * @return pointer to a newly created ::INSERT ::instruction.
+ */
+instruction* create_insert_instruction(const GString* text);
 
-void delete_instruction(instruction* i);
+/**
+ * Frees the memory pointed to by \a i.
+ * 
+ * @param i  instruction to free.
+ */
+void delete_instruction(const instruction* i);
 
 #endif	/* INSTRUCTION_H */
