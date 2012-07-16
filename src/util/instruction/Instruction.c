@@ -1,6 +1,7 @@
 /**
  * @file Instruction.c
  * @author Amaury Couste <ben@bantertrain.com>
+ * @author Jakub Dominik Kozlowski <mail@jakub-kozlowski.com>
  * @since 0.1
  *
  * @section LICENSE
@@ -23,33 +24,40 @@
  */
 
 #include "diffr/util/instruction/Instruction.h"
+#include <glib-2.0/glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 instruction* 
-create_copy_instruction(long start, long end) 
+create_copy_instruction(const long start, const long end) 
 {
-  instruction* i = malloc(sizeof(instruction));
-  memset(i, 0, sizeof(instruction));
-  i->start = start;
-  i->end = end;
-  i->type = COPY;
-  return i;
+  const instruction iStack = {.start = start, 
+                              .end = end, 
+                              .type = COPY, 
+                              .text = NULL
+  };
+  
+  const instruction* iHeap = g_new0(instruction, 1);
+  memcpy(iHeap, &iStack, sizeof(instruction));
+  return iHeap;
 }
 
 instruction* 
-create_insert_instruction(GString* text) 
+create_insert_instruction(const GString* text) 
 {
-  instruction* i = malloc(sizeof(instruction));
-  memset(i, 0, sizeof(instruction));
-  i->text = g_string_new(text->str);
-  i->type = INSERT;
-  return i;
+  const instruction iStack = {.start = -1, 
+                              .end = -1, 
+                              .type = INSERT, 
+                              .text = g_string_new(text->str)
+  };
+  const instruction* iHeap = g_new0(instruction, 1);
+  memcpy(iHeap, &iStack, sizeof(instruction));
+  return iHeap;
 }
 
 void 
-delete_instruction(instruction* i)
+delete_instruction(const instruction* i)
 {
   if (i->text)
     g_free(i->text);

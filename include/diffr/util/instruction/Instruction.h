@@ -1,6 +1,7 @@
 /**
  * @file Instruction.h
  * @author Amaury Couste <ben@bantertrain.com>
+ * @author Jakub Dominik Kozlowski <mail@jakub-kozlowski.com>
  * @since 0.1
  *
  * @section LICENSE
@@ -31,20 +32,56 @@
 
 #include <glib-2.0/glib.h>
 
+/**
+ * Defines an ::instruction. 
+ */
 typedef struct {
 
     enum {
-        COPY, INSERT
+        /**
+         * Denotes a copy instruction.
+         */
+        COPY, 
+        
+        /**
+         * Denotes an insert instruction.
+         */
+        INSERT
     } type;
-    long start;
-    long end;
-    GString *text;
+    
+    const long start;
+    const long end;
+    const GString *text;
 } instruction;
 
+/**
+ * Creates an \link ::type::COPY COPY \endlink that starts 
+ * at line #start and ends at line #end.
+ * 
+ * @param start start line of the \link ::type::COPY COPY \endlink 
+ *              instruction.
+ * @param end   end line of the \link ::type::COPY COPY \endlink 
+ *              instruction.
+ * @return pointer to a newly created \link ::type::COPY COPY \endlink 
+ *              instruction.
+ */
+instruction* create_copy_instruction(const long start, const long end);
 
-instruction* create_copy_instruction(long start, long end);
-instruction* create_insert_instruction(GString* text);
+/**
+ * Creates an \link ::type::INSERT INSERT \endlink that inserts #text.
+ * 
+ * @param text  line to insert. The line is copied, therefore it is the 
+ *              responsibility of the caller to free the original string.
+ * @return pointer to a newly created \link ::type::INSERT INSERT \endlink 
+ *         instruction.
+ */
+instruction* create_insert_instruction(const GString* text);
 
-void delete_instruction(instruction* i);
+/**
+ * Frees the memory pointed to by #i.
+ * 
+ * @param i  instruction to free.
+ */
+void delete_instruction(const instruction* i);
 
 #endif	/* INSTRUCTION_H */
