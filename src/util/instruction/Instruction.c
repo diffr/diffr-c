@@ -32,6 +32,9 @@
 instruction* 
 create_copy_instruction(const long start, const long end) 
 {
+  g_assert(start > 0);
+  g_assert(end > 0);
+  
   const instruction iStack = {.start = start, 
                               .end = end, 
                               .type = COPY, 
@@ -45,6 +48,9 @@ create_copy_instruction(const long start, const long end)
 instruction* 
 create_insert_instruction(const GString* text) 
 {
+  g_assert(NULL != text);
+  g_assert(text->len > 0);
+  
   const instruction iStack = {.start = -1, 
                               .end = -1, 
                               .type = INSERT, 
