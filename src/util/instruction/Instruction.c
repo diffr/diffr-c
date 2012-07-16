@@ -29,43 +29,44 @@
 #include <stdlib.h>
 #include <string.h>
 
-instruction* 
-create_copy_instruction(const long start, const long end) 
-{
+instruction*
+create_copy_instruction(const long start, const long end) {
+  
   g_assert(start > 0);
   g_assert(end > 0);
-  
-  const instruction iStack = {.start = start, 
-                              .end = end, 
-                              .type = COPY, 
-                              .text = NULL
+
+  const instruction iStack = {
+    .start = start,
+    .end = end,
+    .type = COPY,
+    .text = NULL
   };
   const instruction* iHeap = g_new0(instruction, 1);
-  memcpy(iHeap, &iStack, sizeof(instruction));
+  g_memmove(iHeap, &iStack, sizeof (instruction));
   return iHeap;
 }
 
-instruction* 
-create_insert_instruction(const GString* text) 
-{
+instruction*
+create_insert_instruction(const GString* text) {
+  
   g_assert(NULL != text);
   g_assert(text->len > 0);
-  
-  const instruction iStack = {.start = -1, 
-                              .end = -1, 
-                              .type = INSERT, 
-                              .text = g_string_new(text->str)
+
+  const instruction iStack = {
+    .start = -1,
+    .end = -1,
+    .type = INSERT,
+    .text = g_string_new(text->str)
   };
   const instruction* iHeap = g_new0(instruction, 1);
-  memcpy(iHeap, &iStack, sizeof(instruction));
+  g_memmove(iHeap, &iStack, sizeof (instruction));
   return iHeap;
 }
 
-void 
-delete_instruction(const instruction* i)
-{
+void
+delete_instruction(const instruction* i) {
   if (INSERT == i->type && NULL != i->text)
     g_string_free(i->text, TRUE);
-  
-  free(i);
+
+  g_free(i);
 }
