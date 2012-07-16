@@ -50,33 +50,47 @@ enum instruction_type {
 };
 
 /**
+ * Defines a range for the ::COPY instruction that starts at 
+ * \a start (inclusive) and ends at \a end (exclusive).
+ * 
+ */
+typedef struct {
+  const long start;
+  const long end;
+} copy_range;
+
+/**
  * Defines an ::instruction.
  *  
  */
 typedef struct {
+  
   const enum instruction_type type;
-  const long start;
-  const long end;
-  const GString *text;
+  
+  union {
+    const copy_range *range;
+    const GString *text;
+  } data;
+  
 } instruction;
 
 /**
- * Creates a ::COPY ::instruction that starts at line \a start 
- * and ends at line \a end.
+ * Creates a ::COPY ::instruction for this \a range. If \a range is NULL, 
+ * this function call will fail. 
  * 
- * @param start start line of the ::COPY ::instruction.
- * @param end   end line of the ::COPY ::instruction.
+ * @param range range of this ::COPY ::instruction. This constructor creates a 
+ *              private copy of \a range.
  * 
  * @return pointer to a newly created ::COPY ::instruction.
  */
-instruction* create_copy_instruction(const long start, const long end);
+instruction* create_copy_instruction(const copy_range* range);
 
 /**
- * Creates an ::INSERT ::instruction that inserts \a text.
+ * Creates an ::INSERT ::instruction that inserts \a text. If \a text is NULL 
+ * or empty, this function call will fail.
  * 
  * @param text  line to insert. This constructor creates a private copy of 
- *              \a line, therefore it is the responsibility of the caller 
- *              to free the original \a text accordingly.
+ *              \a line.
  * 
  * @return pointer to a newly created ::INSERT ::instruction.
  */

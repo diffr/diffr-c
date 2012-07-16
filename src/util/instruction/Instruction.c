@@ -30,17 +30,18 @@
 #include <string.h>
 
 instruction*
-create_copy_instruction(const long start, const long end) {
-  
-  g_assert(start > 0);
-  g_assert(end > 0);
+create_copy_instruction(const copy_range* range) {
+
+  g_assert(NULL != range);
+
+  const copy_range* range_copy = g_new0(copy_range, 1);
+  g_memmove(range_copy, range, sizeof (copy_range));
 
   const instruction iStack = {
-    .start = start,
-    .end = end,
     .type = COPY,
-    .text = NULL
+    .data.range = range_copy
   };
+
   const instruction* iHeap = g_new0(instruction, 1);
   g_memmove(iHeap, &iStack, sizeof (instruction));
   return iHeap;
@@ -48,16 +49,15 @@ create_copy_instruction(const long start, const long end) {
 
 instruction*
 create_insert_instruction(const GString* text) {
-  
+
   g_assert(NULL != text);
   g_assert(text->len > 0);
 
   const instruction iStack = {
-    .start = -1,
-    .end = -1,
     .type = INSERT,
-    .text = g_string_new(text->str)
+    .data.text = g_string_new(text->str)
   };
+  
   const instruction* iHeap = g_new0(instruction, 1);
   g_memmove(iHeap, &iStack, sizeof (instruction));
   return iHeap;
@@ -65,8 +65,8 @@ create_insert_instruction(const GString* text) {
 
 void
 delete_instruction(const instruction* i) {
-  if (INSERT == i->type && NULL != i->text)
-    g_string_free(i->text, TRUE);
+  if (INSERT == i->type && NULL != i->data.text)
+    g_string_free(i->data.text, TRUE);
 
   g_free(i);
 }
