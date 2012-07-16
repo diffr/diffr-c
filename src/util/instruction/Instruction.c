@@ -37,7 +37,6 @@ create_copy_instruction(const long start, const long end)
                               .type = COPY, 
                               .text = NULL
   };
-  
   const instruction* iHeap = g_new0(instruction, 1);
   memcpy(iHeap, &iStack, sizeof(instruction));
   return iHeap;
@@ -59,8 +58,8 @@ create_insert_instruction(const GString* text)
 void 
 delete_instruction(const instruction* i)
 {
-  if (i->text)
-    g_free(i->text);
+  if (INSERT == i->type && NULL != i->text)
+    g_string_free(i->text, TRUE);
   
   free(i);
 }

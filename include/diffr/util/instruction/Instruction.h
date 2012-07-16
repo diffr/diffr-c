@@ -33,52 +33,57 @@
 #include <glib-2.0/glib.h>
 
 /**
- * Defines an ::instruction. 
+ * Defines the type of the ::instruction.
+ * 
+ */
+enum instruction_type {
+  
+  /**
+   * Denotes a copy instruction.
+   */
+  COPY,
+
+  /**
+   * Denotes an insert instruction.
+   */
+  INSERT
+};
+
+/**
+ * Defines an ::instruction.
+ *  
  */
 typedef struct {
-
-    enum {
-        /**
-         * Denotes a copy instruction.
-         */
-        COPY, 
-        
-        /**
-         * Denotes an insert instruction.
-         */
-        INSERT
-    } type;
-    
-    const long start;
-    const long end;
-    const GString *text;
+  const enum instruction_type type;
+  const long start;
+  const long end;
+  const GString *text;
 } instruction;
 
 /**
- * Creates an \link ::type::COPY COPY \endlink that starts 
- * at line #start and ends at line #end.
+ * Creates a ::COPY ::instruction that starts at line \a start 
+ * and ends at line \a end.
  * 
- * @param start start line of the \link ::type::COPY COPY \endlink 
- *              instruction.
- * @param end   end line of the \link ::type::COPY COPY \endlink 
- *              instruction.
- * @return pointer to a newly created \link ::type::COPY COPY \endlink 
- *              instruction.
+ * @param start start line of the ::COPY ::instruction.
+ * @param end   end line of the ::COPY ::instruction.
+ * 
+ * @return pointer to a newly created ::COPY ::instruction.
  */
 instruction* create_copy_instruction(const long start, const long end);
 
 /**
- * Creates an \link ::type::INSERT INSERT \endlink that inserts #text.
+ * Creates an ::INSERT ::instruction that inserts \a text.
  * 
- * @param text  line to insert. The line is copied, therefore it is the 
- *              responsibility of the caller to free the original string.
- * @return pointer to a newly created \link ::type::INSERT INSERT \endlink 
- *         instruction.
+ * @param text  line to insert. This constructor creates a private copy of 
+ *              \a line, therefore it is the responsibility of the caller 
+ *              to free the original \a text accordingly.
+ * 
+ * @return pointer to a newly created ::INSERT ::instruction.
  */
 instruction* create_insert_instruction(const GString* text);
 
 /**
- * Frees the memory pointed to by #i.
+ * Frees the memory pointed to by \a i.
  * 
  * @param i  instruction to free.
  */

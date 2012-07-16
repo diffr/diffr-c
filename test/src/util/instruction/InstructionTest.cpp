@@ -48,4 +48,30 @@ namespace {
     };
 };
 
-// no tests! TODO
+/*
+ * Tests whether the ::create_copy_instruction method works correctly.
+ * 
+ */
+TEST_F(InstructionTest, CreateCopyInstructionTest) {
+  instruction *const i = create_copy_instruction(1, 2); 
+  ASSERT_EQ(i->type, COPY) << "Type is not COPY";
+  ASSERT_EQ(i->start, 1) << "Start is not 1";
+  ASSERT_EQ(i->end, 2) << "End is not 2";
+  ASSERT_TRUE(NULL == i->text);
+  delete_instruction(i);
+}
+
+/*
+ * Tests whether the ::create_insert_instruction method works correctly.
+ * 
+ */
+TEST_F(InstructionTest, CreateInsertInstructionTest) {
+  GString *const hello_world = g_string_new("hello world!");
+  instruction *const i = create_insert_instruction(hello_world); 
+  ASSERT_EQ(i->type, INSERT) << "Type is not COPY";
+  ASSERT_EQ(i->start, -1) << "Start is not -1";
+  ASSERT_EQ(i->end, -1) << "End is not -1";
+  ASSERT_TRUE(g_string_equal(hello_world, i->text)) << "text is not 'hello world!'";
+  delete_instruction(i);
+  g_string_free(hello_world, TRUE);
+}
