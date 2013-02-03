@@ -29,8 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-instruction*
-create_copy_instruction(const copy_range* range) {
+instruction* create_copy_instruction(const copy_range* range) {
 
   g_assert(NULL != range);
 
@@ -47,8 +46,7 @@ create_copy_instruction(const copy_range* range) {
   return iHeap;
 }
 
-instruction*
-create_insert_instruction(const GString* text) {
+instruction* create_insert_instruction(const GString* text) {
 
   g_assert(NULL != text);
   g_assert(text->len > 0);
@@ -57,14 +55,13 @@ create_insert_instruction(const GString* text) {
     .type = INSERT,
     .data.text = g_string_new(text->str)
   };
-  
+
   const instruction* iHeap = g_new0(instruction, 1);
   g_memmove(iHeap, &iStack, sizeof (instruction));
   return iHeap;
 }
 
-void
-delete_instruction(const instruction* i) {
+void delete_instruction(const instruction* i) {
   if (INSERT == i->type && NULL != i->data.text)
     g_string_free(i->data.text, TRUE);
 

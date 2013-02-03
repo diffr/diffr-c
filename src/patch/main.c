@@ -27,8 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void
-instructions_foreach(gpointer data, gpointer user_data) {
+static void instructions_foreach(gpointer data, gpointer user_data) {
   instruction *i = (instruction*) data;
   GPtrArray *origlines = (GPtrArray*) user_data;
 
@@ -58,8 +57,7 @@ instructions_foreach(gpointer data, gpointer user_data) {
   }
 }
 
-GIOChannel*
-open_channel(char *filename) {
+GIOChannel* open_channel(char *filename) {
   GIOChannel *channel = NULL;
   GError *err = NULL;
   channel = g_io_channel_new_file(filename, "r", &err);
@@ -70,8 +68,7 @@ open_channel(char *filename) {
   return channel;
 }
 
-GSList*
-parse_instructions(char *filename) {
+GSList* parse_instructions(char *filename) {
   GIOChannel *channel = open_channel(filename);
 
   GString *newstr = g_string_new("dummy"); // FIXME
@@ -106,8 +103,7 @@ parse_instructions(char *filename) {
   return l;
 }
 
-GPtrArray*
-parse_input(char *filename) {
+GPtrArray* parse_input(char *filename) {
   GIOChannel *channel = open_channel(filename);
   GPtrArray *lines = g_ptr_array_new();
 
@@ -124,13 +120,11 @@ parse_input(char *filename) {
   return lines;
 }
 
-void
-do_patch(GSList *instructions, GPtrArray *origlines) {
+void do_patch(GSList *instructions, GPtrArray *origlines) {
   g_slist_foreach(instructions, instructions_foreach, origlines);
 }
 
-int
-main(int argc, char **argv) {
+int main(int argc, char **argv) {
   if (argc != 3) {
     fprintf(stderr, "Usage: patch <file> <patchfile>\n");
     exit(-1);
