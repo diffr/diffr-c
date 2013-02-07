@@ -24,7 +24,8 @@ cmake_minimum_required (VERSION 2.6.2)
 
 project (diffr-c)
 
-OPTION(TESTING "Build tests." ON)
+set(TESTING "NONE" CACHE STRING "NONE")
+set(COVERAGE "NONE" CACHE STRING "NONE")
 
 set(DIFFR_DIFFNAME diffr)
 set(DIFFR_PATCHNAME patchr)
@@ -64,26 +65,15 @@ add_library (${DIFFR_PATCH}
     ${DIFFR_SOURCE_DIR}/patch/Patchr.c
     )
 
-add_executable (${DIFFR_DIFFNAME}
-	${DIFFR_SOURCE_DIR}/diff/main.c)
-target_link_libraries(${DIFFR_DIFFNAME}
-	${DIFFR_UTIL}
-	${DIFFR_SUFFIXTREE}
-	${DIFFR_DIFF}
-        ${GLIB_LIBRARIES})
-
-add_executable (${DIFFR_PATCHNAME}
-	${DIFFR_SOURCE_DIR}/patch/main.c)
-target_link_libraries(${DIFFR_PATCHNAME}
-	${DIFFR_UTIL}
-	${DIFFR_PATCH}
-        ${GLIB_LIBRARIES})
-
 ################################################
 # GTest - http://code.google.com/p/googletest/ #
 ################################################
 
-IF(TESTING)
+message("-- Testing mode: ${TESTING}")
+
+IF(("FAST" STREQUAL TESTING) OR ("ALL" STREQUAL TESTING))
+
+    message("-- Testing is enabled.")
 
     add_subdirectory(gtest)
     enable_testing(true)
@@ -92,6 +82,31 @@ IF(TESTING)
         ${gtest_SOURCE_DIR}/include 
         ${gtest_SOURCE_DIR}
     )
+
+    #################
+    # Code coverage #
+    #################
+
+    message("-- Coverage mode: ${COVERAGE}")
+    if(("LCOV" STREQUAL COVERAGE) OR ("COBERTURA" STREQUAL COVERAGE))
+
+      set(CMAKE_BUILD_TYPE "Debug")
+
+      if(NOT (CMAKE_COMPILER_IS_GNUCC AND CMAKE_COMPILER_IS_GNUCXX))
+        message("-- Compiler not GNU, cannot create coverage report.")
+      else()
+        include(CodeCoverage)
+        message("-- Code coverage is enabled.")
+
+        if("LCOV" STREQUAL COVERAGE)
+          SETUP_TARGET_FOR_COVERAGE(coverage ctest coverage)
+        else()
+          SETUP_TARGET_FOR_COVERAGE_COBERTURA(coverage ctest coverage)
+        endif()
+
+      endif()
+
+    endif()
 	
     # list test definitions here
     # TODO: replace this with a macro
@@ -131,4 +146,36 @@ IF(TESTING)
         ${DIFFR_PATCH})
     add_test(PatchrTests PatchrTests)
 
-ENDIF(TESTING)
+ENDIF()
+
+IF("ALL" STREQUAL TESTING)
+
+    message("-- Integration testing is enabled.")
+
+    add_executable(IntegrationTests
+        ${DIFFR_TEST_DIR}/integration/IntegrationTests.cpp
+    ) 
+    target_link_libraries(IntegrationTests gtest gtest_main
+        ${DIFFR_UTIL}
+        ${DIFFR_SUFFIXTREE}
+        ${DIFFR_DIFF}
+        ${DIFFR_PATCH}
+        ${GLIB_LIBRARIES})
+    add_test(IntegrationTests IntegrationTests)
+
+ENDIF()
+
+add_executable (${DIFFR_DIFFNAME}
+	${DIFFR_SOURCE_DIR}/diff/main.c)
+target_link_libraries(${DIFFR_DIFFNAME}
+	${DIFFR_UTIL}
+	${DIFFR_SUFFIXTREE}
+	${DIFFR_DIFF}
+        ${GLIB_LIBRARIES})
+
+add_executable (${DIFFR_PATCHNAME}
+	${DIFFR_SOURCE_DIR}/patch/main.c)
+target_link_libraries(${DIFFR_PATCHNAME}
+	${DIFFR_UTIL}
+	${DIFFR_PATCH}
+        ${GLIB_LIBRARIES})
