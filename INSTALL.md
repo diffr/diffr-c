@@ -6,8 +6,8 @@ To build, you will need:
 * a C++ compiler such a G++ installed and set in the CXX environment variable.
 * CMake (http://www.cmake.org/cmake/resources/software.html) installed and accessible in the PATH environment variable i.e. installed in /usr/local/bin, with /usr/local/bin in $PATH.
 Optionally install:
-# lcov if you wish to generate lcov coverage reports.
-# cobertura,python,gcovr if you wish to generate cobertura coverage reports (for jenkins). 
+* lcov if you wish to generate lcov coverage reports.
+* cobertura,python,gcovr if you wish to generate cobertura coverage reports (for jenkins). 
 
 #### Building
 
