@@ -75,12 +75,14 @@ IF(("FAST" STREQUAL TESTING) OR ("ALL" STREQUAL TESTING))
 
     message("-- Testing is enabled.")
 
-    add_subdirectory(gtest)
+    set(Boost_USE_MULTITHREADED ON)
+    find_package(Boost COMPONENTS 
+        unit_test_framework
+        REQUIRED)
     enable_testing(true)
 
     include_directories(
-        ${gtest_SOURCE_DIR}/include 
-        ${gtest_SOURCE_DIR}
+        ${Boost_INCLUDE_DIRS}
     )
 
     #################
@@ -112,38 +114,44 @@ IF(("FAST" STREQUAL TESTING) OR ("ALL" STREQUAL TESTING))
     # TODO: replace this with a macro
 
     add_executable(UtilTests
-	${DIFFR_TEST_DIR}/util/ArgumentsProcessorTest.cpp
-	${DIFFR_TEST_DIR}/util/instruction/InstructionTest.cpp
+        ${DIFFR_TEST_DIR}/util/ArgumentsProcessorTest.cpp
+        ${DIFFR_TEST_DIR}/util/instruction/InstructionTest.cpp
     )
-    target_link_libraries(UtilTests gtest gtest_main
+    target_link_libraries(UtilTests
         ${DIFFR_UTIL}
         ${GLIB_LIBRARIES}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
     )
     add_test(UtilTests UtilTests)
 
     add_executable(SuffixTreeTests
-	${DIFFR_TEST_DIR}/suffixtree/SuffixTreesTest.cpp
+        ${DIFFR_TEST_DIR}/suffixtree/SuffixTreesTest.cpp
     )
-    target_link_libraries(SuffixTreeTests gtest gtest_main
+    target_link_libraries(SuffixTreeTests
         ${DIFFR_SUFFIXTREE}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
     )
     add_test(SuffixTreeTests SuffixTreeTests)
 
     add_executable(DiffrTests
         ${DIFFR_TEST_DIR}/diff/DiffrTest.cpp
     )
-    target_link_libraries(DiffrTests gtest gtest_main
+    target_link_libraries(DiffrTests
         ${DIFFR_UTIL}
         ${DIFFR_SUFFIXTREE}
-        ${DIFFR_DIFF})
+        ${DIFFR_DIFF}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+    )
     add_test(DiffrTests DiffrTests)
 
     add_executable(PatchrTests
         ${DIFFR_TEST_DIR}/patch/PatchrTest.cpp
     )
-    target_link_libraries(PatchrTests gtest gtest_main
+    target_link_libraries(PatchrTests
         ${DIFFR_UTIL}
-        ${DIFFR_PATCH})
+        ${DIFFR_PATCH}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+    )
     add_test(PatchrTests PatchrTests)
 
 ENDIF()
@@ -155,12 +163,14 @@ IF("ALL" STREQUAL TESTING)
     add_executable(IntegrationTests
         ${DIFFR_TEST_DIR}/integration/IntegrationTests.cpp
     ) 
-    target_link_libraries(IntegrationTests gtest gtest_main
+    target_link_libraries(IntegrationTests
         ${DIFFR_UTIL}
         ${DIFFR_SUFFIXTREE}
         ${DIFFR_DIFF}
         ${DIFFR_PATCH}
-        ${GLIB_LIBRARIES})
+        ${GLIB_LIBRARIES}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+    )
     add_test(IntegrationTests IntegrationTests)
 
 ENDIF()
@@ -171,11 +181,13 @@ target_link_libraries(${DIFFR_DIFFNAME}
 	${DIFFR_UTIL}
 	${DIFFR_SUFFIXTREE}
 	${DIFFR_DIFF}
-        ${GLIB_LIBRARIES})
+    ${GLIB_LIBRARIES}
+)
 
 add_executable (${DIFFR_PATCHNAME}
 	${DIFFR_SOURCE_DIR}/patch/main.c)
 target_link_libraries(${DIFFR_PATCHNAME}
 	${DIFFR_UTIL}
 	${DIFFR_PATCH}
-        ${GLIB_LIBRARIES})
+    ${GLIB_LIBRARIES}
+)

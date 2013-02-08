@@ -22,30 +22,21 @@
  * 
  */
 
-#include "gtest/gtest.h"
+#define BOOST_TEST_DYN_LINK
+#include <boost/test/unit_test.hpp>
 
 extern "C" {
 #include "diffr/util/instruction/Instruction.h"
 }
 
-namespace {
+BOOST_AUTO_TEST_SUITE(ArgumentsProcessorTest) 
 
-    /**
-     * Tests Instruction.
-     * 
-     */
-    class InstructionTest : public ::testing::Test {
-    protected:
+/*
+ * Needed.
+ * 
+ */
+BOOST_AUTO_TEST_CASE(HelloWorldTest) {
+  // hello world
+}
 
-        InstructionTest() {
-
-        }
-
-        virtual ~InstructionTest() {
-
-        }
-
-    };
-};
-
-// no tests! TODO
+BOOST_AUTO_TEST_SUITE_END()

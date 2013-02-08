@@ -22,36 +22,22 @@
  * 
  */
 
-#include "gtest/gtest.h"
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE UtilTest
+#include <boost/test/unit_test.hpp>
 
 extern "C" {
 #include "diffr/util/ArgumentsProcessor.h"
 }
 
-namespace {
-
-    /**
-     * Tests ArgumentsProcessor.
-     * 
-     */
-    class ArgumentsProcessorTest : public ::testing::Test {
-    protected:
-
-        ArgumentsProcessorTest() {
-
-        }
-
-        virtual ~ArgumentsProcessorTest() {
-
-        }
-
-    };
-};
+BOOST_AUTO_TEST_SUITE(ArgumentsProcessorTest) 
 
 /*
  * Tests whether the processArguments method works correctly.
  * 
  */
-TEST_F(ArgumentsProcessorTest, ProcessArgumentsTest) {
-    processArguments();
+BOOST_AUTO_TEST_CASE(ProcessArgumentsTest) {
+  processArguments();
 }
+
+BOOST_AUTO_TEST_SUITE_END()

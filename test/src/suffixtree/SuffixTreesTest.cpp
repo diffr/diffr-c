@@ -22,36 +22,18 @@
  * 
  */
 
-#include "gtest/gtest.h"
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE SuffixTreesTest
+#include <boost/test/unit_test.hpp>
 
 extern "C" {
 #include "diffr/suffixtree/SuffixTrees.h"
 }
 
-namespace {
-
-    /**
-     * Tests SuffixTrees.
-     * 
-     */
-    class SuffixTreesTest : public ::testing::Test {
-    protected:
-
-        SuffixTreesTest() {
-
-        }
-
-        virtual ~SuffixTreesTest() {
-
-        }
-
-    };
-};
-
 /*
  * Tests whether the createTree method works correctly.
  * 
  */
-TEST_F(SuffixTreesTest, CreateTreeTest) {
-    createTree();
+BOOST_AUTO_TEST_CASE(CreateTreeTest) {
+  createTree();
 }

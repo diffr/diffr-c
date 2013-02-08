@@ -22,36 +22,18 @@
  * 
  */
 
-#include "gtest/gtest.h"
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE DiffrTest
+#include <boost/test/unit_test.hpp>
 
 extern "C" {
 #include "diffr/diff/Diffr.h"
 }
 
-namespace {
-
-    /**
-     * Tests Diffr.
-     * 
-     */
-    class DiffrTest : public ::testing::Test {
-    protected:
-
-        DiffrTest() {
-
-        }
-
-        virtual ~DiffrTest() {
-
-        }
-
-    };
-};
-
 /*
  * Tests whether the buildList method works correctly.
  * 
  */
-TEST_F(DiffrTest, BuildListTest) {
-    buildList();
+BOOST_AUTO_TEST_CASE(BuildListTest) {
+  buildList();
 }
