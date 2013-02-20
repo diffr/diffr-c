@@ -95,6 +95,10 @@ IF(("FAST" STREQUAL TESTING) OR ("ALL" STREQUAL TESTING))
       if(NOT (CMAKE_COMPILER_IS_GNUCC AND CMAKE_COMPILER_IS_GNUCXX))
         message("-- Compiler not GNU, cannot create coverage report.")
       else()
+        FIND_PROGRAM(PYTHON_EXECUTABLE
+          NAMES python python3
+          PATHS /usr/bin /usr/local/bin /usr/pkg/bin
+        )
         include(CodeCoverage)
         message("-- Code coverage is enabled.")
 
