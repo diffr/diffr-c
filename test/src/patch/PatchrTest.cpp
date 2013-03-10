@@ -22,36 +22,18 @@
  * 
  */
 
-#include "gtest/gtest.h"
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE PatchrTest
+#include <boost/test/unit_test.hpp>
 
 extern "C" {
 #include "diffr/patch/Patchr.h"
 }
 
-namespace {
-
-    /**
-     * Tests Patchr.
-     * 
-     */
-    class PatchrTest : public ::testing::Test {
-    protected:
-
-        PatchrTest() {
-
-        }
-
-        virtual ~PatchrTest() {
-
-        }
-
-    };
-};
-
 /*
  * Tests whether the buildList method works correctly.
  * 
  */
-TEST_F(PatchrTest, BuildListTest) {
-    buildList();
+BOOST_AUTO_TEST_CASE(BuildListTest) {
+  buildList();
 }
