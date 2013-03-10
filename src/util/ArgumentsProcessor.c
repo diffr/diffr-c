@@ -24,6 +24,6 @@
 
 #include "diffr/util/ArgumentsProcessor.h"
 
-void processArguments(){
-    
+void processArguments() {
+
 }

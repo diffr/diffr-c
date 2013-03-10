@@ -24,6 +24,6 @@
 
 #include "diffr/patch/Patchr.h"
 
-void buildList(){
-    
+void buildList() {
+
 }

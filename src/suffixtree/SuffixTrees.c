@@ -24,6 +24,6 @@
 
 #include "diffr/suffixtree/SuffixTrees.h"
 
-void createTree(){
-    
+void createTree() {
+
 }
