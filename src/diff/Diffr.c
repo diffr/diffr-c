@@ -24,6 +24,6 @@
 
 #include "diffr/diff/Diffr.h"
 
-void buildList(){
-    
+void buildList() {
+
 }

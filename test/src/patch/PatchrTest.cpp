@@ -6,7 +6,7 @@
  * @section LICENSE
  *
  * This file is part of diffr-c.
- * 
+ *
  * diffr-c is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with diffr-c.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 #include "gtest/gtest.h"
@@ -30,28 +30,28 @@ extern "C" {
 
 namespace {
 
-    /**
-     * Tests Patchr.
-     * 
-     */
-    class PatchrTest : public ::testing::Test {
-    protected:
+/**
+ * Tests Patchr.
+ *
+ */
+class PatchrTest : public ::testing::Test {
+protected:
 
-        PatchrTest() {
+  PatchrTest() {
 
-        }
+  }
 
-        virtual ~PatchrTest() {
+  virtual ~PatchrTest() {
 
-        }
+  }
 
-    };
+};
 };
 
 /*
  * Tests whether the buildList method works correctly.
- * 
+ *
  */
 TEST_F(PatchrTest, BuildListTest) {
-    buildList();
+  buildList();
 }

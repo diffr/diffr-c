@@ -8,4 +8,4 @@ documentation/
 *nbproject/
 # OSX
 .DS_Store
-
+*.orig

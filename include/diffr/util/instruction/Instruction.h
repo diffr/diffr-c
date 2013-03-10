@@ -6,7 +6,7 @@
  * @section LICENSE
  *
  * This file is part of diffr-c.
- * 
+ *
  * diffr-c is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,11 +19,11 @@
 
  * You should have received a copy of the GNU General Public License
  * along with diffr-c.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @section DESCRIPTION
- * 
+ *
  * Instruction's definitions.
- * 
+ *
  */
 
 #ifndef INSTRUCTION_H
@@ -33,12 +33,12 @@
 
 typedef struct {
 
-    enum {
-        COPY, INSERT
-    } type;
-    long start;
-    long end;
-    GString *text;
+  enum {
+    COPY, INSERT
+  } type;
+  long start;
+  long end;
+  GString *text;
 } instruction;
 
 
