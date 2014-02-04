@@ -1,6 +1,6 @@
 /**
  * @file ArgumentsProcessor.c
- * @author  William Martin <will.st4@gmail.com>
+ * @author William Martin <will.st4@gmail.com>
  * @since 0.0
  *
  * @section LICENSE
@@ -22,8 +22,26 @@
  *
  */
 
+#include <strings.h>
 #include "diffr/util/ArgumentsProcessor.h"
 
-void processArguments(){
-    
+bool containsHelpArgument(int noArguments, char** arguments) {
+  for (int i = 0; i < noArguments; i++) {
+    char* s = arguments[i];
+    if (0 == strcasecmp(s, "--help")
+            || 0 == strcasecmp(s, "-help")) {
+      return true;
+    }
+  }
+  return false;
+}
+
+char* extractOutputFile(int noArguments, char** arguments) {
+  for (int i = 0; i < noArguments - 1; i++) {
+    char* s = arguments[i];
+    if (0 == strcasecmp(s, "-o")) {
+      return arguments[i + 1];
+    }
+  }
+  return NULL;
 }

@@ -25,6 +25,25 @@
 #ifndef ARGUMENTSPROCESSOR_H
 #define	ARGUMENTSPROCESSOR_H
 
-void processArguments();
+#include <stdbool.h>
+
+/**
+ * Checks if the given arguments contain a call for help.
+ * 
+ * @param noArguments the number of arguments.
+ * @param arguments the arguments to check for help.
+ * @return true if the given arguments contain a call for help, 
+ * false otherwise.
+ */
+bool containsHelpArgument(int noArguments, char** arguments);
+
+/**
+ * Extract the output file location from the given arguments.
+ *
+ * @param noArguments the number of arguments.
+ * @param arguments the arguments to extract the output file location from.
+ * @return the output file location from the given arguments.
+ */
+char* extractOutputFile(int noArguments, char** arguments);
 
 #endif	/* ARGUMENTSPROCESSOR_H */
